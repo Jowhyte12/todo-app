@@ -1,0 +1,18 @@
+
+.todolist {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.todolist > li {
+  margin-bottom: 10px;
+}
+
+.todolistitem {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 20px;
+  padding-block: 25px;
+  background: rgb(202, 178, 113);
+}
