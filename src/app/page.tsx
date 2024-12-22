@@ -8,9 +8,8 @@ export default function Home() {
     <div>
       <Navbar />
       <div className="container">
-        <h1>Todo list</h1>
-        <Todolist/>
-       
+        <h1>TodoList</h1>
+        <Todolist />
       </div>
     </div>
   );
