@@ -5,12 +5,15 @@ import Todolist from "./components/Todolist/Todolist";
 
 export default function Home() {
   return (
-    <div>
-      <Navbar />
-      <div className="container">
-        <h1>TodoList</h1>
-        <Todolist />
-      </div>
+    <>
+    
+        <div>
+        <Navbar/>
+        <div className="container">
+          <Todolist />
+        </div>
     </div>
+  
+    </>
   );
 }

@@ -16,10 +16,11 @@ export default function AddTodo({ onAddTodo }: AddTodoProps) {
   const [duedate, setDuedate] = useState("");
 
   return (
+    
     <div className="add-todo-container">
+      <div className="center">
       <p className="add-todo-title">Add Todo</p>
       <label className="add-todo-label">Title</label>
-
       <input
         type="text"
         className="add-todo-title-input"
@@ -63,6 +64,9 @@ export default function AddTodo({ onAddTodo }: AddTodoProps) {
       >
         Add Todo
       </button>
+
     </div>
+    </div>
+  
   );
 }

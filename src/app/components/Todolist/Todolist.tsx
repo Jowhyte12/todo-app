@@ -1,10 +1,15 @@
-import { useState } from "react";
+"use client";
+import { useState, useRef } from "react";
 import AddTodo from "../Add Todo/AddTodo";
 import "./Todolist.css";
+import { MdDelete } from "react-icons/md";
+
+
 
 interface AddTodo {
   title: "string";
   description: "string";
+  duedate: "string";
 }
 
 export default function Todolist() {
@@ -16,7 +21,7 @@ export default function Todolist() {
       duedate: "5th june",
       isCompleted: false,
       completedAt: null,
-      createdAt: "5th september",
+      createdAt: new Date().toISOString(),
     },
     {
       id: 1,
@@ -75,37 +80,78 @@ export default function Todolist() {
     });
     setTodolist(newTodolist);
   };
+  const handleDelete = (id: number) => {
+    const newTodolist = todolist.filter((todo) => todo.id !== id);
+    setTodolist(newTodolist);
+  };
 
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  function toggleDialog() {
+    if (!dialogRef.current) {
+      return;
+    }
+    dialogRef.current.hasAttribute("open");
+    dialogRef.current.close();
+    dialogRef.current.showModal();
+  }
+  function closeModal() {
+    dialogRef.current?.close();
+  }
   return (
     <div>
+      <div>
+        <h1 className="head">
+          <button onClick={toggleDialog}><p className="top">Todolist</p></button>
+          <dialog ref={dialogRef}>
+            <div className="cover">
+              <AddTodo onAddTodo={handleAddTodo} />
+            </div>
+            <button className="but" onClick={closeModal}>
+              <span className="sr-only">
+                <div className="w-4 h-4">x</div>
+              </span>
+            </button>
+          </dialog>
+        </h1>
+      </div>
+      
+      <div className="todo-row">
       <ul className="todolist">
         {todolist
           .sort((a, b) => Number(a.isCompleted) - Number(b.isCompleted))
           .map((todo) => (
             <li key={todo.id}>
               <div className="todolistitem">
-                {todo.title}
+                <p className="foo">{todo.title}</p>
 
-                <p>{todo.description}</p>
+              <p>{todo.description}</p>
                 <p>created on{todo.createdAt}</p>
                 <p>Due On {todo.duedate} </p>
-                <p>
+                <p className="created">
                   {todo.isCompleted && todo.completedAt
-                    ? `completed at:${new Date(
-                        todo.completedAt
-                      ).toLocaleString()}`
+                    ? `completed at:${new Date().toLocaleString()}`
                     : ""}
                 </p>
+                <p>
                 <input
                   type="checkbox"
                   checked={todo.isCompleted}
                   onChange={() => handleCheckbox(todo.id)}
                 />
+              </p>
+                  
+             
+            
               </div>
+              <button onClick={() => handleDelete(todo.id)}><MdDelete/></button>
             </li>
           ))}
+         
       </ul>
-      <AddTodo onAddTodo={handleAddTodo} />
+      
+      </div>
+      
+  
     </div>
   );
 }
